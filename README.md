@@ -11,10 +11,24 @@ go get github.com/Fodro/appmetrica-push-go
 ```
 ## Sample Usage
 ```go
+package main
+
+import (
+	"fmt"
+	appmetrica "github.com/Fodro/appmetrica-push-go"
+)
+
+func main() {
+	client := appmetrica.NewClient("example")
+	group := client.CreateGroup(&appmetrica.Group{
+		AppId:    12345,
+		Name:     "example",
+		SendRate: 100500,
+	})
+	fmt.Println(fmt.Sprintf("%+v\n", group))
+}
 
 ```
-(coming soon)
-
 ## Plans
 * Add builder for requests
 * More comfortable error handling
