@@ -10,6 +10,7 @@ To install appmetrica-push-go, use `go get`:
 go get github.com/Fodro/appmetrica-push-go
 ```
 ## Sample Usage
+You can directly access structs and assemble them by yourself...
 ```go
 package main
 
@@ -25,6 +26,24 @@ func main() {
 		Name:     "name",
 		SendRate: 100500,
 	})
+	fmt.Println(fmt.Sprintf("%+v\n", group))
+}
+
+```
+...or use built-in functions to construct minimal structs and modify them by accessing their attributes
+```go
+package main
+
+import (
+	"fmt"
+	appmetrica "github.com/Fodro/appmetrica-push-go"
+)
+
+func main() {
+	client := appmetrica.NewClient("token")
+	g := appmetrica.NewCreateGroupRequest(1234, "name")
+	g.SendRate = 5000
+	group := client.CreateGroup(g)
 	fmt.Println(fmt.Sprintf("%+v\n", group))
 }
 
