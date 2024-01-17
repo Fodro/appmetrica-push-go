@@ -1,15 +1,15 @@
 package appmetrica_push
 
 type Client interface {
-	CreateGroup(group *Group) *Group
-	GetGroups() []*Group
-	GetGroup(id int) *Group
-	UpdateGroup(id int, group *Group) *Group
-	ArchiveGroup(id int)
-	RestoreGroup(id int)
-	SendPush(r *PushBatchRequest) *PushResponse
-	GetStatusByTransferId(transferId int) *Transfer
-	GetStatusByClientTransferId(groupId int, clientTransferId int64) *Transfer
+	CreateGroup(group *Group) (*Group, error)
+	GetGroups(appId int) ([]*Group, error)
+	GetGroup(id int) (*Group, error)
+	UpdateGroup(id int, group *Group) (*Group, error)
+	ArchiveGroup(id int) error
+	RestoreGroup(id int) error
+	SendPush(r *PushBatchRequest) (*PushResponse, error)
+	GetStatusByTransferId(transferId int) (*Transfer, error)
+	GetStatusByClientTransferId(groupId int, clientTransferId int64) (*Transfer, error)
 }
 
 const (
@@ -26,6 +26,7 @@ type (
 		Groups       []*Group      `json:"groups,omitempty"`
 		PushResponse *PushResponse `json:"push_response,omitempty"`
 		Transfer     *Transfer     `json:"transfer,omitempty"`
+		Errors       []*Error      `json:"errors,omitempty"`
 	}
 
 	// request is unified struct for all appmetrica API requests
@@ -156,6 +157,11 @@ type (
 	Device struct {
 		IDType   string   `json:"id_type"`   // The type of the ID. Acceptable values: appmetrica_device_id, ios_ifa, google_aid, android_push_token, ios_push_token, huawei_push_token, huawei_oaid.
 		IDValues []string `json:"id_values"` // List of devices to send push messages to. The list can't be empty.
+	}
+
+	Error struct {
+		ErrorType string `json:"error_type"`
+		Message   string `json:"message"`
 	}
 )
 

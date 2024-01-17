@@ -1,6 +1,6 @@
 # Yandex Appmetrica Push API Go Library
 
-Golang client library for Push API.
+Golang client library for Push API. (WIP warning)
 
 For additional information see [Appmetrica Push API documentation](https://appmetrica.yandex.ru/docs/mobile-api/push/about.html)
 ## Getting Started
@@ -21,11 +21,16 @@ import (
 
 func main() {
 	client := appmetrica.NewClient("token")
-	group := client.CreateGroup(&appmetrica.Group{
+	group, err := client.CreateGroup(&appmetrica.Group{
 		AppId:    12345,
 		Name:     "name",
 		SendRate: 100500,
 	})
+	
+	if err != nil {
+		panic(err)
+    }
+	
 	fmt.Println(fmt.Sprintf("%+v\n", group))
 }
 
@@ -43,12 +48,16 @@ func main() {
 	client := appmetrica.NewClient("token")
 	g := appmetrica.NewCreateGroupRequest(1234, "name")
 	g.SendRate = 5000
-	group := client.CreateGroup(g)
+	group, err := client.CreateGroup(g)
+
+	if err != nil {
+		panic(err)
+	}
+	
 	fmt.Println(fmt.Sprintf("%+v\n", group))
 }
 
 ```
 ## Plans
-* Add builder for requests
 * More comfortable error handling
 * Extend functionality to all Appmetrica API
