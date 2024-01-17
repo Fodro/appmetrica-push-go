@@ -19,10 +19,10 @@ import (
 )
 
 func main() {
-	client := appmetrica.NewClient("example")
+	client := appmetrica.NewClient("token")
 	group := client.CreateGroup(&appmetrica.Group{
 		AppId:    12345,
-		Name:     "example",
+		Name:     "name",
 		SendRate: 100500,
 	})
 	fmt.Println(fmt.Sprintf("%+v\n", group))
