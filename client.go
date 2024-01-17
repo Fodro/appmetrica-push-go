@@ -145,7 +145,7 @@ func (c client) sendRequest(endpoint string, method string, req *request) (res *
 	if len(res.Errors) > 0 {
 		msg := ""
 		for _, e := range res.Errors {
-			msg += e.Message + "."
+			msg += e.Message + ". "
 		}
 		return nil, errors.New(msg)
 	}
