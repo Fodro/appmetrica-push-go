@@ -115,7 +115,7 @@ func (c client) sendRequest(endpoint string, method string, req *request) (res *
 	if req != nil {
 		payload, err := json.Marshal(req)
 		if err != nil {
-			return
+			return nil, err
 		}
 		r, err = http.NewRequest(method, url, bytes.NewBuffer(payload))
 	} else {
@@ -123,7 +123,7 @@ func (c client) sendRequest(endpoint string, method string, req *request) (res *
 	}
 
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	r.Header.Add("Content-Type", "application/json")
